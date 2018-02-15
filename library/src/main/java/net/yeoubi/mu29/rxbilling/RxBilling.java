@@ -10,6 +10,7 @@ import com.android.billingclient.api.SkuDetails;
 import com.android.billingclient.api.SkuDetailsParams;
 
 import net.yeoubi.mu29.rxbilling.exceptions.BillingServiceConnectionRefuseException;
+import net.yeoubi.mu29.rxbilling.exceptions.ConsumeFailureException;
 import net.yeoubi.mu29.rxbilling.exceptions.QueryPurchaseFailureException;
 import net.yeoubi.mu29.rxbilling.exceptions.SkuDetailsFailureException;
 
@@ -56,7 +57,7 @@ public class RxBilling {
         );
     }
 
-    public Flowable<List<Purchase>> getPurchases() {
+    public Flowable<List<Purchase>> queryPurchases() {
         return Flowable.create(emitter ->
             tryConnect().subscribe(
                 () -> {
@@ -96,6 +97,23 @@ public class RxBilling {
                             emitter.onSuccess(result);
                         } else {
                             emitter.onError(new SkuDetailsFailureException(code));
+                        }
+                    });
+                },
+                emitter::onError
+            )
+        );
+    }
+
+    public Single<String> consume(String token) {
+        return Single.create(emitter ->
+            tryConnect().subscribe(
+                () -> {
+                    client.consumeAsync(token, (code, purchaseToken) -> {
+                        if (code == BillingClient.BillingResponse.OK) {
+                            emitter.onSuccess(purchaseToken);
+                        } else {
+                            emitter.onError(new ConsumeFailureException(code));
                         }
                     });
                 },
