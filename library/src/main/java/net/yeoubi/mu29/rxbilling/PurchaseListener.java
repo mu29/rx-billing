@@ -34,11 +34,10 @@ class PurchaseListener implements PurchasesUpdatedListener {
             return;
         }
 
-        switch (responseCode) {
-            case BillingClient.BillingResponse.OK:
-                emitter.onSuccess(purchases);
-            default:
-                emitter.onError(new PurchaseFailureException(responseCode));
+        if (responseCode == BillingClient.BillingResponse.OK) {
+            emitter.onSuccess(purchases);
+        } else {
+            emitter.onError(new PurchaseFailureException(responseCode));
         }
     }
 }
