@@ -31,9 +31,10 @@ public class RxBilling {
     private BillingClient client;
     private PurchaseListener purchaseListener = new PurchaseListener();
 
-    private RxBilling(Activity activity) {
+    public RxBilling set(Activity activity) {
         this.activity = activity;
         client = BillingClient.newBuilder(activity).setListener(purchaseListener).build();
+        return this;
     }
 
     public Single<List<Purchase>> purchase(
