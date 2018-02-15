@@ -109,15 +109,13 @@ public class RxBilling {
     public Single<String> consume(String token) {
         return Single.create(emitter ->
             tryConnect().subscribe(
-                () -> {
-                    client.consumeAsync(token, (code, purchaseToken) -> {
-                        if (code == BillingClient.BillingResponse.OK) {
-                            emitter.onSuccess(purchaseToken);
-                        } else {
-                            emitter.onError(new ConsumeFailureException(code));
-                        }
-                    });
-                },
+                () -> client.consumeAsync(token, (code, purchaseToken) -> {
+                    if (code == BillingClient.BillingResponse.OK) {
+                        emitter.onSuccess(purchaseToken);
+                    } else {
+                        emitter.onError(new ConsumeFailureException(code));
+                    }
+                }),
                 emitter::onError
             )
         );
