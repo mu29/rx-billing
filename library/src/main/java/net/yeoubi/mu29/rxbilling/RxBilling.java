@@ -17,9 +17,7 @@ import net.yeoubi.mu29.rxbilling.exceptions.SkuDetailsFailureException;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.BackpressureStrategy;
 import io.reactivex.Completable;
-import io.reactivex.Flowable;
 import io.reactivex.Single;
 
 /**
@@ -58,8 +56,8 @@ public class RxBilling {
         );
     }
 
-    public Flowable<List<Purchase>> queryPurchases() {
-        return Flowable.create(emitter ->
+    public Single<List<Purchase>> queryPurchases() {
+        return Single.create(emitter ->
             tryConnect().subscribe(
                 () -> {
                     Purchase.PurchasesResult result = client.queryPurchases(BillingClient.SkuType.INAPP);
@@ -73,14 +71,13 @@ public class RxBilling {
 
                     int code = result.getResponseCode();
                     if (code == BillingClient.BillingResponse.OK) {
-                        emitter.onNext(result.getPurchasesList());
+                        emitter.onSuccess(result.getPurchasesList());
                     } else {
                         emitter.onError(new QueryPurchaseFailureException(code));
                     }
                 },
                 emitter::onError
-            ),
-            BackpressureStrategy.LATEST
+            )
         );
     }
 
