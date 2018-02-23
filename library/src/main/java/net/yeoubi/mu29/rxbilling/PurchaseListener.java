@@ -12,20 +12,24 @@ import net.yeoubi.mu29.rxbilling.exceptions.PurchaseFlowInterruptException;
 import java.util.List;
 
 import io.reactivex.SingleEmitter;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 
 /**
  * @author InJung Chung
  */
 class PurchaseListener implements PurchasesUpdatedListener {
 
+    private Disposable disposable = new CompositeDisposable();
     private SingleEmitter<List<Purchase>> emitter = null;
 
     void setPurchaseEmitter(SingleEmitter<List<Purchase>> newEmitter) {
         if (emitter != null && !emitter.isDisposed()) {
-            emitter.onError(new PurchaseFlowInterruptException());
+            disposable.dispose();
         }
 
         emitter = newEmitter;
+        emitter.setDisposable(disposable);
     }
 
     @Override
@@ -34,11 +38,10 @@ class PurchaseListener implements PurchasesUpdatedListener {
             return;
         }
 
-        switch (responseCode) {
-            case BillingClient.BillingResponse.OK:
-                emitter.onSuccess(purchases);
-            default:
-                emitter.onError(new PurchaseFailureException(responseCode));
+        if (responseCode == BillingClient.BillingResponse.OK) {
+            emitter.onSuccess(purchases);
+        } else {
+            emitter.onError(new PurchaseFailureException(responseCode));
         }
     }
 }
