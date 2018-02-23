@@ -18,7 +18,7 @@ In module-level `build.gradle`:
 
 ```
 dependencies {
-    implementation 'com.github.mu29:rx-billing:0.4'
+    implementation 'com.github.mu29:rx-billing:0.5'
 }
 ```
 
