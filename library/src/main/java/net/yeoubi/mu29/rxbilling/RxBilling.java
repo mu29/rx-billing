@@ -9,7 +9,6 @@ import com.android.billingclient.api.Purchase;
 import com.android.billingclient.api.SkuDetails;
 import com.android.billingclient.api.SkuDetailsParams;
 
-import net.yeoubi.mu29.rxbilling.exceptions.BillingServiceConnectionRefuseException;
 import net.yeoubi.mu29.rxbilling.exceptions.ConsumeFailureException;
 import net.yeoubi.mu29.rxbilling.exceptions.QueryPurchaseFailureException;
 import net.yeoubi.mu29.rxbilling.exceptions.SkuDetailsFailureException;
@@ -132,9 +131,7 @@ public class RxBilling {
                 }
 
                 @Override
-                public void onBillingServiceDisconnected() {
-                    emitter.onError(new BillingServiceConnectionRefuseException());
-                }
+                public void onBillingServiceDisconnected() {}
             });
         });
     }
