@@ -1,4 +1,4 @@
-package net.yeoubi.mu29.rxbilling;
+package net.yeoubi.rxbilling;
 
 import org.junit.Test;
 

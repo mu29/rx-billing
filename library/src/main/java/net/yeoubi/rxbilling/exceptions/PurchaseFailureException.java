@@ -1,13 +1,13 @@
-package net.yeoubi.mu29.rxbilling.exceptions;
+package net.yeoubi.rxbilling.exceptions;
 
 /**
  * @author InJung Chung
  */
-public class QueryPurchaseFailureException extends Throwable {
+public class PurchaseFailureException extends Throwable {
 
     private int code;
 
-    public QueryPurchaseFailureException(int code) {
+    public PurchaseFailureException(int code) {
         this.code = code;
     }
 

@@ -1,4 +1,4 @@
-package net.yeoubi.mu29.rxbilling.exceptions;
+package net.yeoubi.rxbilling.exceptions;
 
 /**
  * @author InJung Chung

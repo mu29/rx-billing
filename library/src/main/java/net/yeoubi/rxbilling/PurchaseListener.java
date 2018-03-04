@@ -1,4 +1,4 @@
-package net.yeoubi.mu29.rxbilling;
+package net.yeoubi.rxbilling;
 
 import android.support.annotation.Nullable;
 
@@ -6,8 +6,7 @@ import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.Purchase;
 import com.android.billingclient.api.PurchasesUpdatedListener;
 
-import net.yeoubi.mu29.rxbilling.exceptions.PurchaseFailureException;
-import net.yeoubi.mu29.rxbilling.exceptions.PurchaseFlowInterruptException;
+import net.yeoubi.rxbilling.exceptions.PurchaseFailureException;
 
 import java.util.List;
 

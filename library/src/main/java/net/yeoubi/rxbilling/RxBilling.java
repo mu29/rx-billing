@@ -1,4 +1,4 @@
-package net.yeoubi.mu29.rxbilling;
+package net.yeoubi.rxbilling;
 
 import android.app.Activity;
 
@@ -9,9 +9,9 @@ import com.android.billingclient.api.Purchase;
 import com.android.billingclient.api.SkuDetails;
 import com.android.billingclient.api.SkuDetailsParams;
 
-import net.yeoubi.mu29.rxbilling.exceptions.ConsumeFailureException;
-import net.yeoubi.mu29.rxbilling.exceptions.QueryPurchaseFailureException;
-import net.yeoubi.mu29.rxbilling.exceptions.SkuDetailsFailureException;
+import net.yeoubi.rxbilling.exceptions.ConsumeFailureException;
+import net.yeoubi.rxbilling.exceptions.QueryPurchaseFailureException;
+import net.yeoubi.rxbilling.exceptions.SkuDetailsFailureException;
 
 import java.util.ArrayList;
 import java.util.List;

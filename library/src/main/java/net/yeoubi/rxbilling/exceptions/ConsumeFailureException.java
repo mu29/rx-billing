@@ -1,13 +1,13 @@
-package net.yeoubi.mu29.rxbilling.exceptions;
+package net.yeoubi.rxbilling.exceptions;
 
 /**
  * @author InJung Chung
  */
-public class SkuDetailsFailureException extends Throwable {
+public class ConsumeFailureException extends Throwable {
 
     private int code;
 
-    public SkuDetailsFailureException(int code) {
+    public ConsumeFailureException(int code) {
         this.code = code;
     }
 
